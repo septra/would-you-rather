@@ -30,12 +30,12 @@ export default function Nav() {
                     Leaderboard
                 </NavLink>
             </Menu.Item>
-            <Menu.Item key="5">
+            <Menu.Item key="4">
                 <NavLink to='/user' exact>
                     Hello, User
                 </NavLink>
             </Menu.Item>
-            <Menu.Item key="6">
+            <Menu.Item key="5">
                 <NavLink to='/logout'>
                     Logout
                 </NavLink>
