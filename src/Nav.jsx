@@ -7,9 +7,9 @@ import 'antd/dist/antd.css'
 const StyledMenu = styled(Menu)`
   text-align: center;
 
-  &:hover {
-    background-color: #d4e5ff;
-  }
+  /* &:hover {
+    background-color: #17ff1722;
+  } */
 `
 
 export default function Nav() {
