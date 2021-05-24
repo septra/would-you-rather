@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Nav />
-      <div style={{ padding: '20px 50px' }}>
+      <div style={{ padding: '20px 100px' }}>
         <Route path='/' exact component={Poll} />
         <Route path='/add' exact component={NewQuestion} />
         <Route path='/leaderboard' exact component={Leaderboard} />
