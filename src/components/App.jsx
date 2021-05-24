@@ -9,10 +9,10 @@ import Leaderboard from './Leaderboard'
 import Question from './Question'
 import { handleInitialData } from '../actions/shared'
 
-function App() {
+function App(props) {
   
   useEffect(() => {
-    this.props.dispatch(handleInitialData())
+    props.dispatch(handleInitialData())
   })
 
   return (
