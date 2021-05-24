@@ -1,13 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import 'antd/dist/antd.css'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 import Nav from './Nav'
 import Poll from './Poll'
 import NewQuestion from './NewQuestion'
 import Leaderboard from './Leaderboard'
 import Question from './Question'
+import { handleInitialData } from '../actions/shared'
 
 function App() {
+  
+  useEffect(() => {
+    this.props.dispatch(handleInitialData())
+  })
+
   return (
     <Router>
       <Nav />
@@ -21,4 +28,4 @@ function App() {
   )
 }
 
-export default App
+export default connect()(App)
