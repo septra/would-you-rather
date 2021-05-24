@@ -1,4 +1,6 @@
 import { getInitialData } from '../utils/api'
+import { receiveUsers } from './users'
+import { receiveQuestions } from './questions'
 
 export function handleInitialData () {
   return (dispatch) => {
@@ -6,7 +8,7 @@ export function handleInitialData () {
     return getInitialData()
       .then(({ users, questions }) => {
         dispatch(receiveUsers(users))
-        dispatch(receiveTweets(tweets))
+        dispatch(receiveQuestions(questions))
         // dispatch(hideLoading())
       })
   }
