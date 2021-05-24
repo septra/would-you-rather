@@ -11,10 +11,12 @@ function App() {
   return (
     <Router>
       <Nav />
-      <Route path='/' exact component={Poll} />
-      <Route path='/add' exact component={NewQuestion} />
-      <Route path='/leaderboard' exact component={Leaderboard} />
-      <Route path='/user' exact component={User} />
+      <div style={{ padding: '20px 50px' }}>
+        <Route path='/' exact component={Poll} />
+        <Route path='/add' exact component={NewQuestion} />
+        <Route path='/leaderboard' exact component={Leaderboard} />
+        <Route path='/user' exact component={User} />
+      </div>
     </Router>
   )
 }
