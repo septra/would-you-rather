@@ -1,30 +1,67 @@
 import React from 'react';
-import { Card, Col, Row } from 'antd';
+import { Card, Avatar, Tabs, List } from 'antd';
 import styled from 'styled-components'
 
-
 const StyledCard = styled(Card)`
-    border: 1px solid black;
 `
-
+const { TabPane } = Tabs;
 
 const Poll = () => {
+    const answeredQs = [
+        {id:1, text:"Would you rather answer 1??"},
+        {id:2, text:"Would you rather answer 2??"},
+        {id:3, text:"Would you rather answer 3??"}
+    ]
+
+    const unansweredQs = [
+        {id:1, text:"Would you rather unanswer 1??"},
+        {id:2, text:"Would you rather unanswer 2??"},
+        {id:3, text:"Would you rather unanswer 3??"}
+    ]
+
+    const questions = {
+        'Unanswered': unansweredQs,
+        'Answered': answeredQs,
+    }
+
     return (
-      <div style={{ padding: '20px 50px' }}>
-        <Row gutter={8}>
-            <Col span={12}>
-                <StyledCard title="Unanswered" bordered={false}>
-                    StyledCard content
-                </StyledCard>
-            </Col>
-            <Col span={12}>
-                <StyledCard title="Answered" bordered={false}>
-                    StyledCard content
-                </StyledCard>
-            </Col>
-        </Row>
-      </div>
+        <Tabs type="card" size="default" centered={true}>
+            {Object.keys(questions).map(k => (
+                <TabPane tab={k} key={k}>
+                    <QuestionList title={k} questions={questions[k]} />
+                </TabPane>
+            ))}
+        </Tabs>
     );
 }
+
+function QuestionList(props) {
+    return (
+      <div style={{ padding: '20px 20px' }}>
+        <StyledCard title={props.title} bordered={true} hoverable={true}>
+            <List 
+                itemLayout="vertical"
+                dataSource={props.questions}
+                renderItem={(question) => (
+                    <Question id={question.id} text={question.text} />
+                )}
+            />
+        </StyledCard>
+      </div>
+    )
+}
+
+function Question(props) {
+    return (
+        <List.Item>
+            <List.Item.Meta
+                avatar={<Avatar src={''} />}
+                title={'USER asks'} 
+                description={props.text} 
+             />
+        </List.Item>
+    )
+}
+
 
 export default Poll;
