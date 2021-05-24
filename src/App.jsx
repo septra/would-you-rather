@@ -6,6 +6,7 @@ import Poll from './Poll'
 import NewQuestion from './NewQuestion'
 import Leaderboard from './Leaderboard'
 import User from './User'
+import Question from './Question'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/add' exact component={NewQuestion} />
         <Route path='/leaderboard' exact component={Leaderboard} />
         <Route path='/user' exact component={User} />
+        <Route path='/question/:id' exact component={Question} />
       </div>
     </Router>
   )
