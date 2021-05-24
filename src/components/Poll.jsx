@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Avatar, Tabs, List, Divider } from 'antd';
 import styled from 'styled-components'
 import { UserOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
 
 const StyledCard = styled(Card)`
 `
@@ -21,32 +22,46 @@ const StyledAvatar = (props) => {
 
 const { TabPane } = Tabs;
 
-const Poll = () => {
-    const answeredQs = [
-        {id:1, text:"Would you rather answer 1??"},
-        {id:2, text:"Would you rather answer 2??"},
-        {id:3, text:"Would you rather answer 3??"}
-    ]
+const Poll = (props) => {
+    const { questions, authedUserID, answered_questions, unanswered_questions } = useSelector(
+        state => {
+            const authedUserID = "johndoe"
+            const all_question_ids = Object.keys(state.questions)
+            const answered_questions = Object.keys(state.users[authedUserID].answers)
+            const unanswered_questions = all_question_ids.filter(function(e) {
+                return this.indexOf(e) < 0
+            }, answered_questions)
 
-    const unansweredQs = [
-        {id:1, text:"Would you rather unanswer 1??"},
-        {id:2, text:"Would you rather unanswer 2??"},
-        {id:3, text:"Would you rather unanswer 3??"}
-    ]
-
-    const questions = {
-        'Unanswered': unansweredQs,
-        'Answered': answeredQs,
-    }
+            return {
+                questions: state.questions,
+                authedUserID,
+                answered_questions,
+                unanswered_questions
+            }
+        }
+    )
 
     return (
-        <Tabs type="card" size="default" centered={true}>
-            {Object.keys(questions).map(k => (
-                <TabPane tab={k} key={k}>
-                    <QuestionList title={k} questions={questions[k]} />
+        <div>
+            <Tabs type="card" size="default" centered={true}>
+                <TabPane tab={"Unanswered Questions"} key={1}>
+                    <QuestionList 
+                        title={"Unanswered Questions"} 
+                        questions={unanswered_questions.map((id) => (
+                            questions[id]
+                        ))}
+                    />
                 </TabPane>
-            ))}
-        </Tabs>
+                <TabPane tab={"Answered Questions"} key={2}>
+                    <QuestionList 
+                        title={"Answered Questions"} 
+                        questions={answered_questions.map((id) => (
+                            questions[id]
+                        ))}
+                    />
+                </TabPane>
+            </Tabs>
+        </div>
     );
 
 }
@@ -59,7 +74,7 @@ function QuestionList(props) {
                 itemLayout="vertical"
                 dataSource={props.questions}
                 renderItem={(question) => (
-                    <Question id={question.id} text={question.text} />
+                    <Question question={question}/>
                 )}
             />
         </StyledCard>
@@ -72,12 +87,11 @@ function Question(props) {
         <List.Item>
             <List.Item.Meta
                 avatar={<StyledAvatar size={64} icon={<UserOutlined />} src={''} />}
-                title={'USER asks'} 
-                description={props.text} 
+                title={`${props.question.author} asks`}
+                description={`Would you rather ${props.question.optionOne.text} or ${props.question.optionTwo.text}?`}
              />
         </List.Item>
     )
 }
 
-
-export default Poll;
+export default Poll
