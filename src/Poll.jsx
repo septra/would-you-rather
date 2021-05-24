@@ -1,9 +1,24 @@
 import React from 'react';
-import { Card, Avatar, Tabs, List } from 'antd';
+import { Card, Avatar, Tabs, List, Divider } from 'antd';
 import styled from 'styled-components'
+import { UserOutlined } from '@ant-design/icons';
 
 const StyledCard = styled(Card)`
 `
+
+const StyledDivider = styled(Divider)`
+    height: 10vh;
+`
+
+const StyledAvatar = (props) => {
+    return (
+        <div>
+            <Avatar {...props}></Avatar>
+            <StyledDivider type="vertical" />
+        </div>
+    )
+}
+
 const { TabPane } = Tabs;
 
 const Poll = () => {
@@ -33,6 +48,7 @@ const Poll = () => {
             ))}
         </Tabs>
     );
+
 }
 
 function QuestionList(props) {
@@ -55,7 +71,7 @@ function Question(props) {
     return (
         <List.Item>
             <List.Item.Meta
-                avatar={<Avatar src={''} />}
+                avatar={<StyledAvatar size={64} icon={<UserOutlined />} src={''} />}
                 title={'USER asks'} 
                 description={props.text} 
              />
