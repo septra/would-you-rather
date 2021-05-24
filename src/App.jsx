@@ -17,7 +17,7 @@ function App() {
         <Route path='/add' exact component={NewQuestion} />
         <Route path='/leaderboard' exact component={Leaderboard} />
         <Route path='/user' exact component={User} />
-        <Route path='/question/:id' exact component={Question} />
+        <Route path='/question/:id' component={Question} />
       </div>
     </Router>
   )
