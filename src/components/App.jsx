@@ -45,7 +45,6 @@ function App() {
   }, [])
 
   return (
-    <Router>
       <Nav />
       {(loading) 
         ? <SpinnerOverlay>
@@ -59,7 +58,6 @@ function App() {
             <Route path='/login' component={Login} />
         </Container>
       }
-    </Router>
   )
 }
 
