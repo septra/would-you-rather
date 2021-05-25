@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Select, Card, Avatar, Button, Space } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { setAuthedUser } from '../actions/authedUser'
 
 const { Option } = Select;
 
 const Login = () => {
 
+    const dispatch = useDispatch()
     const users = useSelector(state => state.users)
     const [selectedUser, changeSelectedUser] = useState({})
 
@@ -22,23 +24,22 @@ const Login = () => {
                         src={selectedUser.avatarURL}
                     />
                     <Select
-                        showSearch
                         placeholder="Select a person"
                         optionFilterProp="children"
                         onChange={(e) => changeSelectedUser(users[e])}
                         style={{ width: '100%' }}
-                    // onFocus={onFocus}
-                    // onBlur={onBlur}
-                    // onSearch={onSearch}
-                    // filterOption={(input, option) =>
-                    //     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                    // }
                     >
                         {Object.values(users).map(user => (
-                            <Option value={user.id}>{user.name}</Option>
+                            <Option key={user.id} value={user.id}>{user.name}</Option>
                         ))}
                     </Select>
-                    <Button type="primary" htmlType="submit" style={{width:'100%'}}>
+                    <Button 
+                        type="primary" 
+                        htmlType="submit" 
+                        style={{width:'100%'}}
+                        disabled={selectedUser.id === undefined}
+                        onClick={() => dispatch(setAuthedUser(selectedUser.id))}
+                    >
                         Login
                     </Button>
                 </Space>
