@@ -1,24 +1,11 @@
 import React from 'react';
-import { Card, Avatar, Typography, List, Divider, Row, Col } from 'antd';
+import { Card, Avatar, Typography, List, Divider, Row, Col, AutoComplete } from 'antd';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
 import { UserOutlined } from '@ant-design/icons';
 
 const StyledDivider = styled(Divider)`
     height: 100%;
-`
-const Pill = styled.div`
-    color: black;
-    background-color: #43c44355;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    display: flex;
-    text-align: center;
-    line-height:50px;
-    font-weight:1000;
-    justify-content: center;
-    margin: auto;
 `
 
 const { Meta } = Card
@@ -29,10 +16,24 @@ const UserInfo = (props) => {
     const askedCount = props.user.questions.length
     return (
         <Card bordered={true} hoverable={true}>
-            <Row gutter={16}>
+            <Row>
                 <Col span={4}>
                     <Meta
-                        avatar={<Avatar size={80} icon={<UserOutlined />} src={props.user.avatarURL} />}
+                        avatar={
+                            <Avatar 
+                                size={{ xs: 40, sm: 40, md: 80, lg: 100, xl: 100, xxl: 100 }}
+                                icon={<UserOutlined />} 
+                                src={props.user.avatarURL} 
+                            />
+                        }
+                        style={{
+                            margin: 0,
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            'msTransform': 'translate(-50%, -50%)',
+                            transform: 'translate(-50%, -50%)',
+                        }}
                     />
                 </Col>
                 <Col span={1}>
@@ -66,10 +67,33 @@ const UserInfo = (props) => {
                     <StyledDivider type="vertical" />
                 </Col>
                 <Col span={6}>
-                    <Card type="inner" bordered title="Score">
-                        <Pill>
+                    <Card 
+                        type="inner" 
+                        bordered 
+                        title="Score"
+                        headStyle={{'textAlign':'center'}}
+                        style={{
+                            height: '100%',
+                        }}
+                        bodyStyle={{
+                            color: 'black',
+                            'backgroundColor': '#43c44355',
+                            height: '50px',
+                            width: '50px',
+                            'borderRadius': '50%',
+                            display: 'flex',
+                            'textAlign': 'center',
+                            'fontWeight':1000,
+                            'justifyContent': 'center',
+                            margin: 'auto',
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            'msTransform': 'translate(-50%, -50%)',
+                            transform: 'translate(-50%, -50%)',
+                        }}
+                    >
                             {answeredCount + askedCount}
-                        </Pill> 
                     </Card>
                 </Col>
             </Row>
@@ -85,6 +109,7 @@ const Leaderboard = () => {
     return (
         <div>
             <List
+            grid={{ gutter: 2, column: 1 }}
             dataSource={users}
             renderItem={(user) => (
                 <List.Item>
