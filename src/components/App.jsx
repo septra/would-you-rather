@@ -25,6 +25,14 @@ const SpinnerOverlay = styled.div`
   right: 0;
 `
 
+const Container = styled.div`
+  margin: auto;
+  padding: 0 20px;
+  flex: 1 100%;
+  justify-content: center;
+  align-items: center;
+`
+
 function App() {
 
   const dispatch = useDispatch()
@@ -41,12 +49,12 @@ function App() {
         ? <SpinnerOverlay>
             <Spin indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />} />
           </SpinnerOverlay>
-        : <div style={{ padding: '20px 100px' }}>
+        : <Container>
             <Route path='/' exact component={Poll} />
             <Route path='/add' exact component={NewQuestion} />
             <Route path='/leaderboard' exact component={Leaderboard} />
             <Route path='/question/:id' component={Question} />
-        </div>
+        </Container>
       }
     </Router>
   )
