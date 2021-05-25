@@ -18,7 +18,7 @@ const Div = styled.div`
 
 const NewQuestion = () => {
     return (
-        <Card title="Create New Question" bordered={true} hoverable={true}>
+        <Card title="Create New Question" bordered={true}>
             <Form size="middle">
                 <Div>
                     Would you rather ...
