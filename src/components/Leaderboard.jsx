@@ -11,6 +11,24 @@ const StyledDivider = styled(Divider)`
 const { Meta } = Card
 const { Title } = Typography
 
+const Pill = styled.p`
+    height: 50px;
+    width: 50px;
+    color: #11791a;
+    border-radius: 50%;
+    display: flex;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 300;
+    justify-content: center;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+`
+
 const UserInfo = (props) => {
     const answeredCount = Object.keys(props.user.answers).length
     const askedCount = props.user.questions.length
@@ -75,25 +93,11 @@ const UserInfo = (props) => {
                         style={{
                             height: '100%',
                         }}
-                        bodyStyle={{
-                            color: 'black',
-                            'backgroundColor': '#43c44355',
-                            height: '50px',
-                            width: '50px',
-                            'borderRadius': '50%',
-                            display: 'flex',
-                            'textAlign': 'center',
-                            'fontWeight':1000,
-                            'justifyContent': 'center',
-                            margin: 'auto',
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            'msTransform': 'translate(-50%, -50%)',
-                            transform: 'translate(-50%, -50%)',
-                        }}
                     >
+                        <Pill>
                             {answeredCount + askedCount}
+                        
+                        </Pill>
                     </Card>
                 </Col>
             </Row>
