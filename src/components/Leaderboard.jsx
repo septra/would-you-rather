@@ -107,7 +107,10 @@ const UserInfo = (props) => {
 
 const Leaderboard = () => {
     const { users } = useSelector(state => ({
-        users: Object.values(state.users)
+        users: Object.values(state.users).sort((a, b) =>
+            ((Object.keys(b.answers).length + b.questions.length) -
+             (Object.keys(a.answers).length + a.questions.length))
+        )
     }))
 
     return (
