@@ -1,18 +1,12 @@
 import React from 'react';
 import { Card, Avatar, Typography, List, Divider, Row, Col } from 'antd';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components'
 import { UserOutlined } from '@ant-design/icons';
-
-const users = [
-    {name: 'Sarah Edo', aq:7, uq:3},
-    {name: 'Tyled Mcginnis', aq:3, uq:2},
-    {name: 'John Doe', aq:3, uq:2}
-]
 
 const StyledDivider = styled(Divider)`
     height: 100%;
 `
-
 const Pill = styled.div`
     color: black;
     background-color: #43c44355;
@@ -31,12 +25,14 @@ const { Meta } = Card
 const { Title } = Typography
 
 const UserInfo = (props) => {
+    const answeredCount = Object.keys(props.user.answers).length
+    const askedCount = props.user.questions.length
     return (
         <Card bordered={true} hoverable={true}>
             <Row gutter={16}>
                 <Col span={4}>
                     <Meta
-                        avatar={<Avatar size={80} icon={<UserOutlined />} src={''} />}
+                        avatar={<Avatar size={80} icon={<UserOutlined />} src={props.user.avatarURL} />}
                     />
                 </Col>
                 <Col span={1}>
@@ -45,7 +41,7 @@ const UserInfo = (props) => {
                 <Col span={12}>
                     <Row>
                         <Title level={3}>
-                            {props.name}
+                            {props.user.name}
                         </Title>
                     </Row>
                     <Row>
@@ -53,16 +49,16 @@ const UserInfo = (props) => {
                             <span>Answered Questions</span>
                         </Col>
                         <Col span={8} offset={8}>
-                            <span>{props.aq}</span>
+                            <span>{answeredCount}</span>
                         </Col>
                     </Row>
                     <Divider />
                     <Row justify="center">
                         <Col span={8}>
-                            <span style={{"text-align":"right"}}>Unanswered Questions</span>
+                            <span >Created Questions</span>
                         </Col>
                         <Col span={8} offset={8}>
-                            <span>{props.uq}</span>
+                            <span>{askedCount}</span>
                         </Col>
                     </Row>
                 </Col>
@@ -72,7 +68,7 @@ const UserInfo = (props) => {
                 <Col span={6}>
                     <Card type="inner" bordered title="Score">
                         <Pill>
-                            {props.aq + props.uq}
+                            {answeredCount + askedCount}
                         </Pill> 
                     </Card>
                 </Col>
@@ -82,16 +78,19 @@ const UserInfo = (props) => {
 }
 
 const Leaderboard = () => {
+    const { users } = useSelector(state => ({
+        users: Object.values(state.users)
+    }))
+
     return (
         <div>
             <List
-                itemLayout="vertical"
-                dataSource={users}
-                renderItem={(user) => (
-                    <List.Item>
-                        <UserInfo {...user} />
-                    </List.Item>
-                )}
+            dataSource={users}
+            renderItem={(user) => (
+                <List.Item>
+                    <UserInfo user={user} />
+                </List.Item>
+            )}
             />
         </div>
     );
