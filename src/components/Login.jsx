@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Select, Card, Avatar, Button, Space } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { setAuthedUser } from '../actions/authedUser'
+import { Redirect } from 'react-router-dom'
 
 const { Option } = Select;
 
@@ -11,6 +12,16 @@ const Login = () => {
     const dispatch = useDispatch()
     const users = useSelector(state => state.users)
     const [selectedUser, changeSelectedUser] = useState({})
+    const [loggedIn, setLoggedIn] = useState(false)
+
+    const handleLogin = (id) => {
+        dispatch(setAuthedUser(id))
+        setLoggedIn(true)
+    }
+
+    if (loggedIn) {
+        return <Redirect to='/' />
+    }
 
     return (
         <div>
@@ -38,7 +49,7 @@ const Login = () => {
                         htmlType="submit" 
                         style={{width:'100%'}}
                         disabled={selectedUser.id === undefined}
-                        onClick={() => dispatch(setAuthedUser(selectedUser.id))}
+                        onClick={() => handleLogin(selectedUser.id)}
                     >
                         Login
                     </Button>
