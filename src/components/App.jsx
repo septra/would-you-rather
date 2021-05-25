@@ -26,6 +26,7 @@ const SpinnerOverlay = styled.div`
 `
 
 const Container = styled.div`
+  max-width: 700px;
   margin: auto;
   padding: 0 20px;
   flex: 1 100%;
