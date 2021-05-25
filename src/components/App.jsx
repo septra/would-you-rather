@@ -3,7 +3,7 @@ import { Spin } from 'antd';
 import styled from 'styled-components'
 import { LoadingOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import Nav from './Nav'
 import Poll from './Poll'
@@ -12,6 +12,7 @@ import Leaderboard from './Leaderboard'
 import Question from './Question'
 import Login from './Login'
 import { handleInitialData } from '../actions/shared'
+import { setAuthedUser, logoutUser } from '../actions/authedUser';
 
 const SpinnerOverlay = styled.div`
   position: fixed;
@@ -33,31 +34,58 @@ const Container = styled.div`
   flex: 1 100%;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `
+
+function PrivateRoute ({component: Component, authed, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => authed === true
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
+    />
+  )
+}
 
 function App() {
 
   const dispatch = useDispatch()
-  const loading = useSelector(state => state.loading)
-  
+  const { loading, authedUser } = useSelector(state => ({
+    loading: state.loading,
+    authedUser: state.authedUser
+  }))
+  let history = useHistory()
+
   useEffect(() => {
       dispatch(handleInitialData())
   }, [])
 
+  const handleLogout = () => {
+      dispatch(logoutUser())
+      history.push('/login')
+  }
+
   return (
+    <div>
       <Nav />
-      {(loading) 
+      {(loading)
         ? <SpinnerOverlay>
-            <Spin indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />} />
-          </SpinnerOverlay>
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />} />
+        </SpinnerOverlay>
         : <Container>
-            <Route path='/' exact component={Poll} />
-            <Route path='/add' exact component={NewQuestion} />
-            <Route path='/leaderboard' exact component={Leaderboard} />
-            <Route path='/question/:id' component={Question} />
-            <Route path='/login' component={Login} />
+          <PrivateRoute authed={authedUser !== null} path='/' exact component={Poll} />
+          <Route path='/login' component={Login} />
+          <PrivateRoute authed={authedUser !== null} path='/add' exact component={NewQuestion} />
+          <Route path='/leaderboard' exact component={Leaderboard} />
+          <Route path='/question/:id' component={Question} />
+          {/* <Route
+            path='/logout'
+            render={() => handleLogout()}
+          /> */}
         </Container>
       }
+    </div>
   )
 }
 
