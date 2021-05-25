@@ -25,12 +25,16 @@ const { TabPane } = Tabs;
 const Poll = (props) => {
     const { questions, authedUserID, answered_questions, unanswered_questions } = useSelector(
         state => {
-            const authedUserID = "johndoe"
+            const authedUserID = state.authedUser
             const all_question_ids = Object.keys(state.questions)
-            const answered_questions = Object.keys(state.users[authedUserID].answers)
-            const unanswered_questions = all_question_ids.filter(function(e) {
+            const answered_questions = Object.keys(state.users[authedUserID].answers).sort((a, b) =>
+                state.questions[b].timestamp - state.questions[a].timestamp
+            )
+            const unanswered_questions = all_question_ids.filter(function (e) {
                 return this.indexOf(e) < 0
-            }, answered_questions)
+            }, answered_questions).sort((a, b) =>
+                state.questions[b].timestamp - state.questions[a].timestamp
+            )
 
             return {
                 questions: state.questions,
