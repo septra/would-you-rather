@@ -83,12 +83,15 @@ function QuestionList(props) {
 }
 
 function Question(props) {
+    const { user } = useSelector(state => ({
+        user: state.users[props.question.author]
+    }))
     return (
         <List.Item>
             <List.Item.Meta
-                avatar={<StyledAvatar size={64} icon={<UserOutlined />} src={''} />}
-                title={`${props.question.author} asks`}
-                description={`Would you rather ${props.question.optionOne.text} or ${props.question.optionTwo.text}?`}
+                avatar={<StyledAvatar size={64} icon={<UserOutlined />} src={`${user.avatarURL}`} />}
+                title={`${user.name} asks`}
+                description={`Would you rather ${props.question.optionOne.text} or ...`}
              />
         </List.Item>
     )
