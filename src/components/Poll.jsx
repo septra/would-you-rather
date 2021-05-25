@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Avatar, Tabs, List, Divider } from 'antd';
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { UserOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -72,8 +73,8 @@ const Poll = (props) => {
 
 function QuestionList(props) {
     return (
-      <div style={{ padding: '20px 20px' }}>
-        <StyledCard title={props.title} bordered={true} hoverable={true}>
+      <div style={{ padding: '20px 20px', overflow: 'hidden' }}>
+        <StyledCard title={props.title} bordered={true}>
             <List 
                 itemLayout="vertical"
                 dataSource={props.questions}
@@ -91,13 +92,18 @@ function Question(props) {
         user: state.users[props.question.author]
     }))
     return (
-        <List.Item>
-            <List.Item.Meta
-                avatar={<StyledAvatar size={64} icon={<UserOutlined />} src={`${user.avatarURL}`} />}
-                title={`${user.name} asks`}
-                description={`Would you rather ${props.question.optionOne.text} or ...`}
-             />
-        </List.Item>
+        <Link to={`/question/${props.question.id}`} >
+            <Card hoverable style={{'margin': '5px 0'}}>
+            <List.Item>
+                <List.Item.Meta
+                    avatar={<StyledAvatar size={64} icon={<UserOutlined />} src={`${user.avatarURL}`} />}
+                    title={`${user.name} asks`}
+                    description={`Would you rather ${props.question.optionOne.text} or ...`}
+                />
+            </List.Item>
+
+            </Card>
+        </Link>
     )
 }
 
