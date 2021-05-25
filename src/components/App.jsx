@@ -10,6 +10,7 @@ import Poll from './Poll'
 import NewQuestion from './NewQuestion'
 import Leaderboard from './Leaderboard'
 import Question from './Question'
+import Login from './Login'
 import { handleInitialData } from '../actions/shared'
 
 const SpinnerOverlay = styled.div`
@@ -28,7 +29,7 @@ const SpinnerOverlay = styled.div`
 const Container = styled.div`
   max-width: 700px;
   margin: auto;
-  padding: 0 20px;
+  padding: 20px 20px;
   flex: 1 100%;
   justify-content: center;
   align-items: center;
@@ -55,6 +56,7 @@ function App() {
             <Route path='/add' exact component={NewQuestion} />
             <Route path='/leaderboard' exact component={Leaderboard} />
             <Route path='/question/:id' component={Question} />
+            <Route path='/login' component={Login} />
         </Container>
       }
     </Router>
