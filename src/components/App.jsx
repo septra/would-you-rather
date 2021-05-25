@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Spin } from 'antd';
+import styled from 'styled-components'
 import { LoadingOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
@@ -10,6 +11,19 @@ import NewQuestion from './NewQuestion'
 import Leaderboard from './Leaderboard'
 import Question from './Question'
 import { handleInitialData } from '../actions/shared'
+
+const SpinnerOverlay = styled.div`
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: visible;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+`
 
 function App() {
 
@@ -24,9 +38,9 @@ function App() {
     <Router>
       <Nav />
       {(loading) 
-        ?  <div>
-            <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
-          </div>
+        ? <SpinnerOverlay>
+            <Spin indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />} />
+          </SpinnerOverlay>
         : <div style={{ padding: '20px 100px' }}>
             <Route path='/' exact component={Poll} />
             <Route path='/add' exact component={NewQuestion} />
