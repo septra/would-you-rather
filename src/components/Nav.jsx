@@ -1,9 +1,11 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { Menu } from 'antd';
+import { NavLink, useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Menu, Avatar } from 'antd';
 import styled from 'styled-components'
 import 'antd/dist/antd.css'
+import { logoutUser } from '../actions/authedUser';
+import { UserOutlined } from '@ant-design/icons';
 
 const StyledMenu = styled(Menu)`
   text-align: center;
@@ -15,11 +17,22 @@ const StyledMenu = styled(Menu)`
 
 // TODO: Set Active menu item based on url that is directly accessed.
 
+
 export default function Nav() {
-    const authedUser = useSelector(state => state.authedUser)
+    const { authedUser, users } = useSelector(state => ({
+        authedUser: state.authedUser,
+        users: state.users
+    }))
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const handleLogout = () => {
+        dispatch(logoutUser())
+        history.push('/login')
+    }
+
     return (
         <StyledMenu mode="horizontal">
-            <Menu.Item key="1">
+            <Menu.Item key="1" style={{ float: 'center', display: 'inlineBlock', alignItems: 'center' }}>
                 <NavLink to='/' exact>
                     Home
                 </NavLink>
@@ -34,12 +47,26 @@ export default function Nav() {
                     Leaderboard
                 </NavLink>
             </Menu.Item>
-            {authedUser &&
-            <Menu.Item key="4">
-                <NavLink to='/logout'>
-                    Logout 
-                </NavLink>
-            </Menu.Item>}
+            { authedUser &&
+                <Menu.SubMenu
+                    title={`Hi, ${authedUser && users[authedUser].name}`}
+                    style={{ position: 'absolute', right: 0 }}
+                    disabled={authedUser === null}
+                    icon={
+                        <span>
+                            <Avatar 
+                                icon={<UserOutlined />} 
+                                src={`${users[authedUser].avatarURL}`} 
+                                size={'large'}
+                            />
+                        </span>
+                    }
+                >
+                    <Menu.Item onClick={() => handleLogout()}>
+                        Logout
+                    </Menu.Item>
+                </Menu.SubMenu>
+            }
         </StyledMenu>
     )
 }
