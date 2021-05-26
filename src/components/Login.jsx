@@ -19,14 +19,12 @@ const Login = () => {
         setLoggedIn(true)
     }
 
-    if (loggedIn) {
-        return <Redirect to='/' />
-    }
-
-    return (
+    return loggedIn
+        ? (<Redirect to='/' />)
+        : (
         <div>
             <Card
-                style={{textAlign: 'center'}}
+                style={{ textAlign: 'center' }}
             >
                 <Space direction="vertical">
                     <Avatar
@@ -44,10 +42,10 @@ const Login = () => {
                             <Option key={user.id} value={user.id}>{user.name}</Option>
                         ))}
                     </Select>
-                    <Button 
-                        type="primary" 
-                        htmlType="submit" 
-                        style={{width:'100%'}}
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        style={{ width: '100%' }}
                         disabled={selectedUser.id === undefined}
                         onClick={() => handleLogin(selectedUser.id)}
                     >
