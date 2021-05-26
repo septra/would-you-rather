@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { Menu } from 'antd';
 import styled from 'styled-components'
 import 'antd/dist/antd.css'
@@ -15,6 +16,7 @@ const StyledMenu = styled(Menu)`
 // TODO: Set Active menu item based on url that is directly accessed.
 
 export default function Nav() {
+    const authedUser = useSelector(state => state.authedUser)
     return (
         <StyledMenu mode="horizontal">
             <Menu.Item key="1">
@@ -32,11 +34,12 @@ export default function Nav() {
                     Leaderboard
                 </NavLink>
             </Menu.Item>
-            <Menu.Item key="5">
+            {authedUser &&
+            <Menu.Item key="4">
                 <NavLink to='/logout'>
-                    Logout
+                    Logout 
                 </NavLink>
-            </Menu.Item>
+            </Menu.Item>}
         </StyledMenu>
     )
 }
