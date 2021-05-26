@@ -28,7 +28,7 @@ const Login = () => {
             >
                 <Space direction="vertical">
                     <Avatar
-                        size={{ xs: 40, sm: 40, md: 80, lg: 200, xl: 200, xxl: 200 }}
+                        size={{ xs: 40, sm: 100, md: 150, lg: 200, xl: 200, xxl: 200 }}
                         icon={<UserOutlined />}
                         src={selectedUser.avatarURL}
                     />
