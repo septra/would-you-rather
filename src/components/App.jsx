@@ -3,7 +3,7 @@ import { Spin } from 'antd';
 import styled from 'styled-components'
 import { LoadingOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css'
-import { BrowserRouter as Router, Route, Redirect, useHistory } from 'react-router-dom'
+import { Route, Redirect, Switch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import Nav from './Nav'
 import Poll from './Poll'
@@ -12,7 +12,6 @@ import Leaderboard from './Leaderboard'
 import Question from './Question'
 import Login from './Login'
 import { handleInitialData } from '../actions/shared'
-import { setAuthedUser, logoutUser } from '../actions/authedUser';
 
 const SpinnerOverlay = styled.div`
   position: fixed;
@@ -55,16 +54,10 @@ function App() {
     loading: state.loading,
     authedUser: state.authedUser
   }))
-  let history = useHistory()
 
   useEffect(() => {
       dispatch(handleInitialData())
   }, [])
-
-  const handleLogout = () => {
-      dispatch(logoutUser())
-      history.push('/login')
-  }
 
   return (
     <div>
@@ -74,15 +67,13 @@ function App() {
           <Spin indicator={<LoadingOutlined style={{ fontSize: 80 }} spin />} />
         </SpinnerOverlay>
         : <Container>
-          <PrivateRoute authed={authedUser !== null} path='/' exact component={Poll} />
-          <Route path='/login' component={Login} />
-          <PrivateRoute authed={authedUser !== null} path='/add' exact component={NewQuestion} />
-          <Route path='/leaderboard' exact component={Leaderboard} />
-          <Route path='/question/:id' component={Question} />
-          {/* <Route
-            path='/logout'
-            render={() => handleLogout()}
-          /> */}
+          <Switch>
+            <Route path='/login' exact component={Login} />
+            <PrivateRoute authed={authedUser !== null} path='/' exact component={Poll} />
+            <PrivateRoute authed={authedUser !== null} path='/add' exact component={NewQuestion} />
+            <PrivateRoute authed={authedUser !== null} path='/leaderboard' exact component={Leaderboard} />
+            <PrivateRoute authed={authedUser !== null} path='/question/:id' component={Question} />
+          </Switch>
         </Container>
       }
     </div>
