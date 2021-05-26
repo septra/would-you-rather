@@ -32,7 +32,7 @@ export default function Nav() {
 
     return (
         <StyledMenu mode="horizontal">
-            <Menu.Item key="1" style={{ float: 'center', display: 'inlineBlock', alignItems: 'center' }}>
+            <Menu.Item key="1">
                 <NavLink to='/' exact>
                     Home
                 </NavLink>
