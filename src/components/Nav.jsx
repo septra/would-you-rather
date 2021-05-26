@@ -10,13 +10,9 @@ import { UserOutlined } from '@ant-design/icons';
 const StyledMenu = styled(Menu)`
   text-align: center;
 
-  /* &:hover {
-    background-color: #17ff1722;
-  } */
 `
 
 // TODO: Set Active menu item based on url that is directly accessed.
-
 
 export default function Nav() {
     const { authedUser, users } = useSelector(state => ({
