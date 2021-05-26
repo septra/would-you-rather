@@ -15,7 +15,7 @@ const StyledDivider = styled(Divider)`
 const StyledAvatar = (props) => {
     return (
         <div>
-            <Avatar {...props}></Avatar>
+            <Avatar {...props} />
             <StyledDivider type="vertical" />
         </div>
     )
@@ -92,16 +92,16 @@ function Question(props) {
     }))
     return (
         <Link to={`/question/${props.question.id}`} >
-            <Card hoverable style={{'margin': '5px 0'}}>
-            <List.Item>
+            <List.Item style={{maxHeight: '140px', margin: '5px 5px'}}>
+            <Card hoverable style={{ maxHeight: 'inherit'}}>
                 <List.Item.Meta
-                    avatar={<StyledAvatar size={64} icon={<UserOutlined />} src={`${user.avatarURL}`} />}
+                    avatar={<StyledAvatar size={80} icon={<UserOutlined />} src={`${user.avatarURL}`} />}
                     title={`${user.name} asks`}
                     description={`Would you rather ${props.question.optionOne.text} or ...`}
                 />
+            </Card>
             </List.Item>
 
-            </Card>
         </Link>
     )
 }
