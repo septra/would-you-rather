@@ -3,7 +3,7 @@ import { Card, Avatar, Tabs, List, Divider } from 'antd';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { UserOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const StyledCard = styled(Card)`
 `
@@ -24,7 +24,7 @@ const StyledAvatar = (props) => {
 const { TabPane } = Tabs;
 
 const Poll = (props) => {
-    const { questions, authedUserID, answered_questions, unanswered_questions } = useSelector(
+    const { questions, answered_questions, unanswered_questions } = useSelector(
         state => {
             const authedUserID = state.authedUser
             const all_question_ids = Object.keys(state.questions)
@@ -39,7 +39,6 @@ const Poll = (props) => {
 
             return {
                 questions: state.questions,
-                authedUserID,
                 answered_questions,
                 unanswered_questions
             }
@@ -73,7 +72,7 @@ const Poll = (props) => {
 
 function QuestionList(props) {
     return (
-      <div style={{ padding: '20px 20px', overflow: 'hidden' }}>
+      <div style={{ padding: '20px 20px' }}>
         <StyledCard title={props.title} bordered={true}>
             <List 
                 itemLayout="vertical"
