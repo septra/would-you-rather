@@ -19,6 +19,9 @@ const Question = (props) => {
         const question = state.questions[qid]
         const user = state.users[question.author]
 
+        const answered = question.optionOne.votes.includes(authedUser) || 
+                         question.optionTwo.votes.includes(authedUser)
+
         return {
             question,
             user
