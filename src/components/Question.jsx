@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Card, Form, Button, Radio, Space, Typography, Avatar, Divider, Row, Col } from 'antd';
+import { Progress, Card, Form, Button, Radio, Space, Typography, Avatar, Divider, Row, Col } from 'antd';
 import { useSelector } from 'react-redux';
 import { UserOutlined, CheckOutlined } from '@ant-design/icons';
 import styled from 'styled-components'
@@ -64,12 +64,17 @@ const Question = (props) => {
                 <Col span={16}>
                     <Row>
                         <Title level={3}>
-                            {user.name}
+                            {user.name} asks
+                        </Title>
+                    </Row>
+                    <Row>
+                        <Title level={5}>
+                            Would you rather ...
                         </Title>
                     </Row>
                     {
                         answered 
-                        ? <AnsweredQuestion />
+                        ? <AnsweredQuestion question={question} />
                         : <UnansweredQuestion question={question} submitAnswer={submitAnswer} />
                     }
                 </Col>
@@ -79,10 +84,49 @@ const Question = (props) => {
 }
 
 const AnsweredQuestion = (props) => {
+    const { question } = props
+    const optionOnevotes = props.question.optionOne.votes.length
+    const optionTwovotes = props.question.optionTwo.votes.length
+
+    const authedUser = useSelector(state => state.authedUser)
+
     return (
-        <div>
-            Answered
-        </div>
+        <Space direction="vertical" style={{width: '100%'}} >
+            <Row >
+                {props.question.optionOne.votes.includes(authedUser)
+                    ?  <Col span={4} style={{marginTop: '20px', paddingLeft: '10px'}}>
+                            <CheckOutlined style={{fontSize: '30px'}} />
+                       </Col>
+                    : <Col span={4} />}
+                <Col span={16}>
+                    {question.optionOne.text}
+                    <Progress percent={
+                        (optionOnevotes / (optionOnevotes + optionTwovotes)) * 100
+                    }/>
+                    <span>
+                        ({ optionOnevotes } / { optionOnevotes + optionTwovotes })
+                    </span>
+                </Col>
+            </Row>
+            <Divider />
+            <Row>
+                {props.question.optionTwo.votes.includes(authedUser)
+                    ?  <Col span={4} style={{marginTop: '20px', paddingLeft: '10px'}}>
+                            <CheckOutlined style={{fontSize: '30px'}} />
+                       </Col>
+                    : <Col span={4} />}
+                <Col span={16}>
+                    {question.optionTwo.text}
+                    <Progress percent={
+                        (optionTwovotes / (optionOnevotes + optionTwovotes)) * 100
+                    }/>
+                    <span>
+                        ({ optionTwovotes } / { optionOnevotes + optionTwovotes })
+                    </span>
+                </Col>
+            </Row>
+        </Space>
+
     )
 }
 
