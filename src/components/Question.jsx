@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Progress, Card, Form, Button, Radio, Space, Typography, Avatar, Divider, Row, Col } from 'antd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { UserOutlined, CheckOutlined } from '@ant-design/icons';
 import styled from 'styled-components'
+import { answerQuestion } from '../actions/questions';
 
 const { Meta } = Card
 const { Title } = Typography
@@ -13,9 +14,10 @@ const StyledDivider = styled(Divider)`
 `
 
 const Question = (props) => {
-    const { answered, question, user } = useSelector(state => {
-        const { qid } = useParams()
+    const dispatch = useDispatch()
+    const { qid } = useParams()
 
+    const { answered, question, user, authedUser } = useSelector(state => {
         const authedUser = state.authedUser
         const question = state.questions[qid]
         const user = state.users[question.author]
@@ -26,14 +28,14 @@ const Question = (props) => {
         return {
             answered,
             question,
-            user
+            user,
+            authedUser
         }
     })
 
-    console.log(answered)
-
     const submitAnswer = ( option ) => {
-        console.log(option)
+        const choice = option === 'a' ? 'optionOne' : 'optionTwo'
+        dispatch(answerQuestion(authedUser, qid, choice))
     }
     
     return (
@@ -101,7 +103,7 @@ const AnsweredQuestion = (props) => {
                 <Col span={16}>
                     {question.optionOne.text}
                     <Progress percent={
-                        (optionOnevotes / (optionOnevotes + optionTwovotes)) * 100
+                        Math.round((optionOnevotes / (optionOnevotes + optionTwovotes)) * 100)
                     }/>
                     <span>
                         ({ optionOnevotes } / { optionOnevotes + optionTwovotes })
@@ -118,7 +120,7 @@ const AnsweredQuestion = (props) => {
                 <Col span={16}>
                     {question.optionTwo.text}
                     <Progress percent={
-                        (optionTwovotes / (optionOnevotes + optionTwovotes)) * 100
+                        Math.round((optionTwovotes / (optionOnevotes + optionTwovotes)) * 100)
                     }/>
                     <span>
                         ({ optionTwovotes } / { optionOnevotes + optionTwovotes })
