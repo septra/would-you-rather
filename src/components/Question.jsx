@@ -80,4 +80,49 @@ const Question = (props) => {
     )
 }
 
+const AnsweredQuestion = (props) => {
+    return (
+        <div>
+            Answered
+        </div>
+    )
+}
+
+const UnansweredQuestion = (props) => {
+    const [selected, selectOption] = useState(null)
+
+    const { question } = props;
+
+    return (
+        <Radio.Group 
+            style={{width:'100%'}} 
+            value={selected}
+            onChange={(e) => selectOption(e.target.value)}
+        >
+            <Space direction="vertical" style={{width: '100%'}}>
+                <Row >
+                    <Radio.Button value="a" style={{width:'100%'}}>
+                        {question.optionOne.text} {selected === 'a' ? <CheckOutlined /> : null}
+                    </Radio.Button>
+                </Row>
+                <Row>
+                    <Radio.Button value="b" style={{width: '100%'}}>
+                        {question.optionTwo.text} {selected === 'b' ? <CheckOutlined /> : null}
+                    </Radio.Button>
+                </Row>
+                <Row>
+                    <Button 
+                        style={{margin: 'auto', width: '50%'}}
+                        type="primary"
+                        disabled={selected === null}
+                        onClick={() => props.submitAnswer(selected)}
+                    >
+                        Submit
+                    </Button>
+                </Row>
+            </Space>
+        </Radio.Group>
+    );
+}
+
 export default Question;
