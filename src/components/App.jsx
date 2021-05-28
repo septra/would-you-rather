@@ -72,7 +72,7 @@ function App() {
             <PrivateRoute authed={authedUser !== null} path='/' exact component={Poll} />
             <PrivateRoute authed={authedUser !== null} path='/add' exact component={NewQuestion} />
             <PrivateRoute authed={authedUser !== null} path='/leaderboard' exact component={Leaderboard} />
-            <PrivateRoute authed={authedUser !== null} path='/question/:id' component={Question} />
+            <PrivateRoute authed={authedUser !== null} path='/question/:qid' component={Question} />
           </Switch>
         </Container>
       }
