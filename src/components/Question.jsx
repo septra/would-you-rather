@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Card, Typography, Avatar, Divider, Row, Col } from 'antd';
+import { Card, Form, Button, Radio, Space, Typography, Avatar, Divider, Row, Col } from 'antd';
 import { useSelector } from 'react-redux';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, CheckOutlined } from '@ant-design/icons';
 import styled from 'styled-components'
-import questions from '../reducers/questions';
 
 const { Meta } = Card
 const { Title } = Typography
@@ -14,8 +13,10 @@ const StyledDivider = styled(Divider)`
 `
 
 const Question = (props) => {
-    const { question, user } = useSelector(state => {
+    const { answered, question, user } = useSelector(state => {
         const { qid } = useParams()
+
+        const authedUser = state.authedUser
         const question = state.questions[qid]
         const user = state.users[question.author]
 
@@ -23,21 +24,28 @@ const Question = (props) => {
                          question.optionTwo.votes.includes(authedUser)
 
         return {
+            answered,
             question,
             user
         }
     })
 
+    console.log(answered)
+
+    const submitAnswer = ( option ) => {
+        console.log(option)
+    }
+    
     return (
         <Card bordered={true} hoverable={true}>
             <Row>
-                <Col span={4}>
+                <Col span={7}>
                     <Meta
                         avatar={
-                            <Avatar 
-                                size={{ xs: 40, sm: 40, md: 80, lg: 100, xl: 100, xxl: 100 }}
-                                icon={<UserOutlined />} 
-                                src={user.avatarURL} 
+                            <Avatar
+                                size={{ xs: 40, sm: 100, md: 150, lg: 200, xl: 200, xxl: 200 }}
+                                icon={<UserOutlined />}
+                                src={user.avatarURL}
                             />
                         }
                         style={{
@@ -53,30 +61,20 @@ const Question = (props) => {
                 <Col span={1}>
                     <StyledDivider type="vertical" />
                 </Col>
-                <Col span={12}>
+                <Col span={16}>
                     <Row>
                         <Title level={3}>
                             {user.name}
                         </Title>
                     </Row>
-                    <Row>
-                        <Col >
-                            <span>{question.optionOne.text}</span>
-                        </Col>
-                    </Row>
-                    <Row justify="center">
-                        <Col >
-                            <span>{question.optionTwo.text}</span>
-                        </Col>
-                    </Row>
+                    {
+                        answered 
+                        ? <AnsweredQuestion />
+                        : <UnansweredQuestion question={question} submitAnswer={submitAnswer} />
+                    }
                 </Col>
-                <Col span={1}>
-                    <StyledDivider type="vertical" />
-                </Col>
-                {/* <Col span={6}>
-                </Col> */}
             </Row>
-       </Card>
+        </Card>
     )
 }
 
