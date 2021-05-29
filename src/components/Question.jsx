@@ -100,7 +100,7 @@ const AnsweredQuestion = (props) => {
                        </Col>
                     : <Col span={4} />}
                 <Col span={16}>
-                    {question.optionOne.text}
+                    {question.optionOne.text}?
                     <Progress percent={
                         Math.round((optionOnevotes / (optionOnevotes + optionTwovotes)) * 100)
                     }/>
@@ -117,7 +117,7 @@ const AnsweredQuestion = (props) => {
                        </Col>
                     : <Col span={4} />}
                 <Col span={16}>
-                    {question.optionTwo.text}
+                    {question.optionTwo.text}?
                     <Progress percent={
                         Math.round((optionTwovotes / (optionOnevotes + optionTwovotes)) * 100)
                     }/>
@@ -145,12 +145,12 @@ const UnansweredQuestion = (props) => {
             <Space direction="vertical" style={{width: '100%'}}>
                 <Row >
                     <Radio.Button value="a" style={{width:'100%'}}>
-                        {question.optionOne.text} {selected === 'a' ? <CheckOutlined /> : null}
+                        {question.optionOne.text}? {selected === 'a' ? <CheckOutlined /> : null}
                     </Radio.Button>
                 </Row>
                 <Row>
                     <Radio.Button value="b" style={{width: '100%'}}>
-                        {question.optionTwo.text} {selected === 'b' ? <CheckOutlined /> : null}
+                        {question.optionTwo.text}? {selected === 'b' ? <CheckOutlined /> : null}
                     </Radio.Button>
                 </Row>
                 <Row>
