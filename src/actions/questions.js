@@ -1,5 +1,6 @@
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
 export const ANSWER_QUESTION = 'ANSWER_QUESTION'
+export const ADD_QUESTION = 'ADD_QUESTION'
 
 export function receiveQuestions(questions) {
     return {
@@ -8,11 +9,18 @@ export function receiveQuestions(questions) {
     }
 }
 
-export function answerQuestion(userid, questionid, option) {
+function _answerQuestion (user, questionid, option) {
     return {
         type: ANSWER_QUESTION,
-        userid,
+        authedUser: user,
         questionid,
         option
+    }
+}
+
+export function answerQuestion(questionid, option) {
+    return (dispatch, getState) => {
+        const { authedUser } = getState()
+        dispatch(_answerQuestion(authedUser, questionid, option))
     }
 }

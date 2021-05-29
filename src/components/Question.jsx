@@ -17,7 +17,7 @@ const Question = (props) => {
     const dispatch = useDispatch()
     const { qid } = useParams()
 
-    const { answered, question, user, authedUser } = useSelector(state => {
+    const { answered, question, user } = useSelector(state => {
         const authedUser = state.authedUser
         const question = state.questions[qid]
         const user = state.users[question.author]
@@ -29,13 +29,12 @@ const Question = (props) => {
             answered,
             question,
             user,
-            authedUser
         }
     })
 
     const submitAnswer = ( option ) => {
         const choice = option === 'a' ? 'optionOne' : 'optionTwo'
-        dispatch(answerQuestion(authedUser, qid, choice))
+        dispatch(answerQuestion(qid, choice))
     }
     
     return (

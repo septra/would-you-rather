@@ -11,10 +11,10 @@ export default function users(state = {}, action) {
         case ANSWER_QUESTION:
             return {
                 ...state,
-                [action.userid]: {
-                    ...state[action.userid],
+                [action.authedUser]: {
+                    ...state[action.authedUser],
                     answers : Object.assign(
-                        state[action.userid].answers, 
+                        state[action.authedUser].answers, 
                         { [action.questionid]: action.option }
                     )
                 }
