@@ -33,10 +33,10 @@ Start the server
   npm run dev
 ```
 
-![App Screenshot](https://user-images.githubusercontent.com/5586070/117992541-a619bd80-b35c-11eb-826d-36509b81bff2.png)
-![App Screenshot](https://user-images.githubusercontent.com/5586070/117992541-a619bd80-b35c-11eb-826d-36509b81bff2.png)
-![App Screenshot](https://user-images.githubusercontent.com/5586070/117992541-a619bd80-b35c-11eb-826d-36509b81bff2.png)
-![App Screenshot](https://user-images.githubusercontent.com/5586070/117992541-a619bd80-b35c-11eb-826d-36509b81bff2.png)
+![App Screenshot](https://user-images.githubusercontent.com/5586070/120067028-129ff680-c097-11eb-9b12-f8221f907582.png)
+![App Screenshot](https://user-images.githubusercontent.com/5586070/120067033-1764aa80-c097-11eb-85a8-3a19484898ef.png)
+![App Screenshot](https://user-images.githubusercontent.com/5586070/120067038-1af83180-c097-11eb-979e-58fd74ee41d5.png)
+![App Screenshot](https://user-images.githubusercontent.com/5586070/120067042-2186a900-c097-11eb-8f48-52de91362ae3.png)
 
 ## Motivation
 
