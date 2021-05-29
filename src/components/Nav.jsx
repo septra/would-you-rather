@@ -12,8 +12,6 @@ const StyledMenu = styled(Menu)`
 
 `
 
-// TODO: Set Active menu item based on url that is directly accessed.
-
 export default function Nav() {
     const { authedUser, users } = useSelector(state => ({
         authedUser: state.authedUser,

@@ -3,10 +3,7 @@ import { Card, Avatar, Typography, List, Divider, Row, Col, AutoComplete } from 
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
 import { UserOutlined } from '@ant-design/icons';
-
-const StyledDivider = styled(Divider)`
-    height: 100%;
-`
+import { StyledDivider } from './StylingComponents'
 
 const { Meta } = Card
 const { Title } = Typography

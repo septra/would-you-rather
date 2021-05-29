@@ -3,15 +3,11 @@ import { useParams } from 'react-router-dom';
 import { Progress, Card, Form, Button, Radio, Space, Typography, Avatar, Divider, Row, Col } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserOutlined, CheckOutlined } from '@ant-design/icons';
-import styled from 'styled-components'
 import { answerQuestion } from '../actions/questions';
+import { StyledDivider } from './StylingComponents'
 
 const { Meta } = Card
 const { Title } = Typography
-
-const StyledDivider = styled(Divider)`
-    height: 100%;
-`
 
 const Question = (props) => {
     const dispatch = useDispatch()

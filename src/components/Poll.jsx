@@ -5,9 +5,6 @@ import styled from 'styled-components'
 import { UserOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 
-const StyledCard = styled(Card)`
-`
-
 const StyledDivider = styled(Divider)`
     height: 10vh;
 `
@@ -73,7 +70,7 @@ const Poll = (props) => {
 function QuestionList(props) {
     return (
       <div style={{ padding: '20px 20px' }}>
-        <StyledCard title={props.title} bordered={true}>
+        <Card title={props.title} bordered={true}>
             <List 
                 itemLayout="vertical"
                 dataSource={props.questions}
@@ -81,7 +78,7 @@ function QuestionList(props) {
                     <Question question={question}/>
                 )}
             />
-        </StyledCard>
+        </Card>
       </div>
     )
 }
