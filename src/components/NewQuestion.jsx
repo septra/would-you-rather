@@ -26,7 +26,10 @@ const NewQuestion = () => {
     const [optionTwo, setOptionTwo] = useState('')
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(addQuestion())
+        dispatch(addQuestion({
+            optionOneText: optionOne,
+            optionTwoText: optionTwo
+        }))
         history.push('/')
     }
     return (
